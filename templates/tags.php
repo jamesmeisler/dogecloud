@@ -1,9 +1,21 @@
 <html>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <body>
-</body>
+ <div class="container">
+  <div id="main" class="row">
+    <div id="message" class="col-lg-12" id="loading">
+    <div style="min-width: 129px margin: 0 auto"><h3 class="text-centered">Loading</h3></div>
+    <img cladd ="img-responsive center-block pagination-center" src="images/load.gif" />
+    </div>
+  </div>
+  </div>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+
 <script src="js/d3.layout.cloud.js"></script>
 <script>
   var fill = d3.scale.category20();
@@ -42,7 +54,9 @@
   }
 
   $.getJSON('api/<?=$twitterId;?>').done(function(data){
+    $('div.container').hide();
     cloud(data);
   });
 </script>
+</body>
 </html>

@@ -19,28 +19,33 @@
 		$tags = array();
 		$name = '';
 		$maxId = null;
-		$maxDate = null;
+		$maxDate = 0;
+		$tweetCount = 0;
 		$i = 1;
 		do {
 			$statuses = $twitter->request('statuses/user_timeline.json', 'GET', 
 				array(
-					'screen_name'	=>$twittername, 
-					'count'			=>200, 
-					'include_rts'	=>1, 
+					'screen_name'	=> $twittername, 
+					'count'			=> 200, 
+					'include_rts'	=> 1, 
 					'max_id'		=> $maxId
 				)
 			);
+			$maxId = $statuses[count($statuses) -1]->id;
 
 			foreach($statuses as $status) {
-				$maxId = ($maxId == null || $status->id < $maxId) ? $status->id : $maxId;
+				
 				$maxDate = $status->created_at;
+				
 				foreach($status->entities->hashtags as $hashtag) {
 					$tags[] = "#" . "{$hashtag->text} ";
 				}
+				
 				$name = $status->user->name;
+				$tweetCount++;
 			}
 			$i++;
-		} while (count($statuses) == 200 && $i < 20);
+		} while (count($statuses) > 0 && $i < 20);
 
 		//$helper->tweets($string);
 		echo $helper->tweets($tags);
