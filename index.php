@@ -36,16 +36,16 @@
 			foreach($statuses as $status) {
 				
 				$maxDate = $status->created_at;
-				
+
 				foreach($status->entities->hashtags as $hashtag) {
-					$tags[] = "#" . "{$hashtag->text} ";
+					$tags[] = "{$hashtag->text} ";
 				}
 				
 				$name = $status->user->name;
 				$tweetCount++;
 			}
 			$i++;
-		} while (count($statuses) > 0 && $i < 20);
+		} while (count($statuses) > 0 && $i < 2);
 
 		//$helper->tweets($string);
 		echo $helper->tweets($tags);

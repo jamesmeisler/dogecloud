@@ -52,6 +52,7 @@
 
 			foreach($tags as $tag)
 			{
+				$tag = strtolower($tag);
 				if(isset($tagCount[$tag]))
 				{
 					$tagCount[$tag]++;
@@ -61,10 +62,12 @@
 					$tagCount[$tag] = 1;
 				}
 			}
+			arsort($tagCount);
+			$tagCount = array_slice($tagCount,0,7);
 			$keys = array_keys($tagCount);
 			$values = array_values($tagCount);
 			$max = max($values);
-			$tagCount = array_map(function($value) use ($max) {return $value/$max; }, $tagCount);
+			$tagCount = array_map(function($value) use ($max) {return 1; }, $tagCount);
 			$return = array();
 			foreach($tagCount as $k => $tag)
 			{
@@ -73,6 +76,19 @@
 					'size' => $tag
 				);
 			}
+			$prefix = array('so ','very ','much ','how ','#','such ');
+			shuffle($prefix);
+			
+			foreach ($return as $k => $v)
+			{
+				$return[$k]['tag'] = end($prefix) . $v['tag'];
+				array_pop($prefix);
+			}
+
+			$return[] = array('tag' => 'wow', 'size' => 1);
+			$return[] = array('tag' => 'amaze', 'size' => 1);
+
+
 			return json_encode($return);
 		}
 

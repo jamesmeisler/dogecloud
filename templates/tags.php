@@ -2,7 +2,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<style>
+svg {
+  background-image: url('http://i.imgur.com/f39SDZs.jpg');
+}
+</style>
 <body>
  <div class="container">
   <div id="main" class="row">
@@ -15,19 +19,19 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
-
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="js/d3.layout.cloud.js"></script>
 <script>
   var fill = d3.scale.category20();
 
   function cloud(data)
   {
-    d3.layout.cloud().size([1000, 1000])
+    d3.layout.cloud().size([1280, 960])
         .words(data.map(function(d) {
-          return {text: d.tag, size: 10 + d.size * 120};
+          return {text: d.tag, size: 10 + d.size * 90};
         }))
-        .padding(5)
-        .rotate(function() { return ~~(Math.random() * 2) * 90; })
+        .padding(20)
+        .rotate(function() { return 0; })
         .font("Impact")
         .fontSize(function(d) { return d.size; })
         .on("end", draw)
@@ -36,10 +40,10 @@
 
   function draw(words) {
     d3.select("body").append("svg")
-        .attr("width", 1000)
-        .attr("height", 1000)
+        .attr("width", 1280)
+        .attr("height", 960)
       .append("g")
-        .attr("transform", "translate(500,500)")
+        .attr("transform", "translate(640,470)")
       .selectAll("text")
         .data(words)
       .enter().append("text")
